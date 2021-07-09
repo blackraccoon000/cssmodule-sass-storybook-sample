@@ -1,7 +1,8 @@
 import React from 'react';
-import './button.css';
+import clsx from "clsx"
+import styles from 'stories/Button.module.scss';
 
-interface ButtonProps {
+export interface ButtonProps {
   /**
    * Is this the principal call to action on the page?
    */
@@ -34,15 +35,22 @@ export const Button = ({
   label,
   ...props
 }: ButtonProps) => {
-  const mode = primary ? 'storybook-button--primary' : 'storybook-button--secondary';
   return (
-    <button
-      type="button"
-      className={['storybook-button', `storybook-button--${size}`, mode].join(' ')}
-      style={{ backgroundColor }}
-      {...props}
-    >
-      {label}
-    </button>
+<button
+	type="button"
+	className={
+		clsx(
+			styles.storybookButton,
+			size === "small" && styles.storybookButtonSmall,
+			size === "medium" && styles.storybookButtonMedium,
+			size === "large" && styles.storybookButtonLarge,
+			primary ? styles.storybookButtonPrimary : styles.storybookButtonSecondary
+		)
+	}
+	style={{ backgroundColor }}
+	{...props}
+>
+	{label}
+</button>
   );
 };
